@@ -1,5 +1,7 @@
 package br.com.csaatibaia.MontaCesta.Model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +37,6 @@ public class Cesta {
     Coagri coagri;
 
     @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL)
-    Item item;
+    List<Item> itens;
     
 }
