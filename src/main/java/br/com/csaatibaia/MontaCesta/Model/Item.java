@@ -21,7 +21,7 @@ public class Item {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    Long id;
 
     @Column(nullable = false)
     String nome;

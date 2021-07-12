@@ -24,7 +24,7 @@ public class Cesta {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    Long id;
 
     @Column(nullable = false)
     int quantidadeItens;
