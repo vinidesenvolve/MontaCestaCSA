@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.csaatibaia.MontaCesta.Model.Cesta;
 import br.com.csaatibaia.MontaCesta.Model.Coagri;
+import br.com.csaatibaia.MontaCesta.Repository.CestaRepository;
 import br.com.csaatibaia.MontaCesta.Repository.CoagriRepository;
 
 @Controller
@@ -20,6 +21,7 @@ public class CoagriController {
 
     @Autowired
     CoagriRepository coagriRepo;
+    CestaRepository cestaRepo;
 
     @PostMapping
     public @ResponseBody String adicionarCoagri (
@@ -30,7 +32,9 @@ public class CoagriController {
         coagri.setEmail(novoCoagri.getNome());
         coagri.setSenha(novoCoagri.getSenha());
         coagri.setNome(novoCoagri.getNome());
-       
+        
+        coagri.setCesta(novoCoagri.getCesta());
+        
         coagriRepo.save(coagri);
 
         return "Coagri cadastrado!";

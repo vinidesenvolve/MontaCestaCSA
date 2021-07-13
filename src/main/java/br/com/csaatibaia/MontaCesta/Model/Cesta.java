@@ -12,11 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -32,11 +30,10 @@ public class Cesta {
     @Column(nullable = false)
     boolean isMontada;
 
-    @OneToOne
-    @JoinColumn(name = "coagri_id")
+    @OneToOne(mappedBy = "cesta")
     Coagri coagri;
 
-    @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL)
-    List<Item> itens;
+    // @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL)
+    // List<Item> itens;
     
 }
