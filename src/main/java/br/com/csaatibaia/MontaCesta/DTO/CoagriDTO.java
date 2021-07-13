@@ -1,7 +1,13 @@
 package br.com.csaatibaia.MontaCesta.DTO;
 
 import br.com.csaatibaia.MontaCesta.Model.Coagri;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class CoagriDTO {
     
     private Long id;

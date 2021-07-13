@@ -19,22 +19,22 @@ public class Coagri {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
-    String email;
+    private String email;
     
     @Column(nullable = false, unique = true)
-    String senha;
+    private String senha;
 
     @Column(nullable = false)
-    String nome;
+    private String nome;
 
     @Column(nullable = false)
-    Integer tipoCesta;
+    private Integer tipoCesta;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cestaId", referencedColumnName = "id")
-    Cesta cesta;
+    private Cesta cesta;
 
 }

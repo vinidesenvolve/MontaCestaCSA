@@ -10,38 +10,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.csaatibaia.MontaCesta.DTO.CoagriDTO;
 import br.com.csaatibaia.MontaCesta.Model.Cesta;
 import br.com.csaatibaia.MontaCesta.Model.Coagri;
 import br.com.csaatibaia.MontaCesta.Repository.CestaRepository;
 import br.com.csaatibaia.MontaCesta.Repository.CoagriRepository;
+import br.com.csaatibaia.MontaCesta.Service.CoagriService;
 
 @Controller
 @RequestMapping(path="/coagri")
 public class CoagriController {
 
     @Autowired
-    CoagriRepository coagriRepo;
-    CestaRepository cestaRepo;
+    CoagriService coagriService;
 
     @PostMapping
-    public @ResponseBody String adicionarCoagri (
-        @RequestBody Coagri novoCoagri){
-
-        Coagri coagri = new Coagri();
-
-        coagri.setEmail(novoCoagri.getNome());
-        coagri.setSenha(novoCoagri.getSenha());
-        coagri.setNome(novoCoagri.getNome());
+    public @ResponseBody String cadastrarCoagri (@RequestBody CoagriDTO coagriDTO){
         
-        coagri.setCesta(novoCoagri.getCesta());
-        
-        coagriRepo.save(coagri);
-
-        return "Coagri cadastrado!";
+        return coagriService.cadastrar(coagriDTO);
     }
 
     @GetMapping
-    public @ResponseBody List<Coagri> getAllCoagris(){
-        return coagriRepo.findAll();
+    public @ResponseBody List<Coagri> buscarCoagris(){
+        
+        return coagriService.buscarTodos();
     }
 }

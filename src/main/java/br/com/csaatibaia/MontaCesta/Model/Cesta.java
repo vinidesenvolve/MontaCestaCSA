@@ -33,7 +33,7 @@ public class Cesta {
     @OneToOne(mappedBy = "cesta")
     Coagri coagri;
 
-    // @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL)
-    // List<Item> itens;
+    @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL)
+    List<Item> itens;
     
 }
