@@ -17,7 +17,7 @@ public class CoagriService {
     
     public String cadastrar(CoagriDTO coagriDTO){
 
-    Coagri coagri = new Coagri();
+        Coagri coagri = new Coagri();
 
         coagri.setEmail(coagriDTO.getEmail());
         coagri.setSenha(coagriDTO.getSenha());
@@ -30,6 +30,21 @@ public class CoagriService {
     }
      
     public List<Coagri> buscarTodos(){
+
         return coagriRepo.findAll();
+    }
+
+    public CoagriDTO buscarPorEmail(String email){
+
+        Coagri coagri = coagriRepo.findByEmail(email);
+
+        CoagriDTO coagriDTO = new CoagriDTO();
+        
+        coagriDTO.setId(coagri.getId());
+        coagriDTO.setEmail(coagri.getEmail());
+        coagriDTO.setNome(coagri.getNome());
+        coagriDTO.setTipoCesta(coagri.getTipoCesta());
+
+        return coagriDTO;
     }
 }
