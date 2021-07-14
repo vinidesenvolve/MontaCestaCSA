@@ -36,6 +36,6 @@ public class Item {
     String produtor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cesta")
+    @JoinColumn(name = "cesta_id")
     Cesta cesta;    
 }

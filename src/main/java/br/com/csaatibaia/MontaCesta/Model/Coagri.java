@@ -1,13 +1,14 @@
 package br.com.csaatibaia.MontaCesta.Model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -38,8 +39,7 @@ public class Coagri {
     @NotNull
     private Integer tipoCesta;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cestaId", referencedColumnName = "id")
-    private Cesta cesta;
+    @OneToMany(mappedBy = "coagri", cascade = CascadeType.ALL)
+    private List<Cesta> cestas;
 
 }
