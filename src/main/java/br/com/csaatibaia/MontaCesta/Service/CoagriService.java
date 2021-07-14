@@ -3,6 +3,7 @@ package br.com.csaatibaia.MontaCesta.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.csaatibaia.MontaCesta.DTO.CoagriDTO;
@@ -15,7 +16,7 @@ public class CoagriService {
     @Autowired
     CoagriRepository coagriRepo;
     
-    public String cadastrar(CoagriDTO coagriDTO){
+    public ResponseEntity<String> cadastrar(CoagriDTO coagriDTO){
 
         Coagri coagri = new Coagri();
 
@@ -26,7 +27,7 @@ public class CoagriService {
         
         coagriRepo.save(coagri);
 
-        return "Coagri cadastrado!";
+        return ResponseEntity.ok("Coagri cadastrado!");
     }
      
     public List<Coagri> buscarTodos(){

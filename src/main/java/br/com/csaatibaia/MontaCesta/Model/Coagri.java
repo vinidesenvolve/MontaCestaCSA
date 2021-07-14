@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,16 +24,18 @@ public class Coagri {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @NotEmpty
+    @Email(message = "Formato inválido")
+    @Column(unique = true)
     private String email;
-    
-    @Column(nullable = false, unique = true)
+
+    @NotEmpty
     private String senha;
 
-    @Column(nullable = false)
+    @NotEmpty
     private String nome;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer tipoCesta;
 
     @OneToOne(cascade = CascadeType.ALL)
