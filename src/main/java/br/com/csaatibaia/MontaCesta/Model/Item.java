@@ -27,11 +27,14 @@ public class Item {
     String nome;
 
     @Column(nullable = false)
+    String descricao;
+
+    @Column(nullable = false)
     int quantidade;
 
-    @Column
-    String produtor;
-
+    @Column(nullable = false)
+    String origem;
+    
     @ManyToMany(mappedBy = "itens")
     List<Cesta> cesta;    
 }
