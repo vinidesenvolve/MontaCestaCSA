@@ -1,6 +1,7 @@
 package br.com.csaatibaia.MontaCesta.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,23 +31,26 @@ public class CoagriService {
         return ResponseEntity.ok("Coagri cadastrado!");
     }
      
-    public List<Coagri> buscarTodos(){
+    public List<CoagriDTO> buscarTodos(){
 
-        return coagriRepo.findAll();
+        return coagriRepo.findAll()
+            .stream()
+            .map(e -> converteParaCoagriDTO(e))
+            .collect(Collectors.toList());
     }
 
     public CoagriDTO buscarPorEmail(String email){
 
         Coagri coagri = coagriRepo.findByEmail(email);
 
-        return converteCoagriDTO(coagri);
+        return converteParaCoagriDTO(coagri);
     }
 
     public CoagriDTO buscarPorId(Long id) {
 
         Coagri coagri = coagriRepo.findById(id).get();
        
-        return converteCoagriDTO(coagri);
+        return converteParaCoagriDTO(coagri);
     }
 
     public String alterar(Long id, CoagriDTO coagriDTO){
@@ -70,7 +74,7 @@ public class CoagriService {
         return "Coagri excluído!";
     }
 
-    private CoagriDTO converteCoagriDTO(Coagri coagri) {
+    private CoagriDTO converteParaCoagriDTO(Coagri coagri) {
 
         CoagriDTO coagriDTO = new CoagriDTO();
         

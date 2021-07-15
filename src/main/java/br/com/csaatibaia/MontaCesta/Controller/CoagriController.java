@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.csaatibaia.MontaCesta.DTO.CoagriDTO;
-import br.com.csaatibaia.MontaCesta.Model.Coagri;
 import br.com.csaatibaia.MontaCesta.Service.CoagriService;
 
 @Controller
@@ -34,7 +33,7 @@ public class CoagriController {
     }
 
     @GetMapping
-    public @ResponseBody List<Coagri> buscarCoagris(){
+    public @ResponseBody List<CoagriDTO> buscarCoagris(){
         
         return coagriService.buscarTodos();
     }
