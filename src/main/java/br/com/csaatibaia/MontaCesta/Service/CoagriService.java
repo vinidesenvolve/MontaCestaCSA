@@ -25,7 +25,7 @@ public class CoagriService {
         coagri.setSenha(coagriDTO.getSenha());
         coagri.setNome(coagriDTO.getNome());
         coagri.setTipoCesta(coagriDTO.getTipoCesta());
-        
+
         coagriRepo.save(coagri);
 
         return ResponseEntity.ok("Coagri cadastrado!");
@@ -35,7 +35,7 @@ public class CoagriService {
 
         return coagriRepo.findAll()
             .stream()
-            .map(e -> converteParaCoagriDTO(e))
+            .map(e -> new CoagriDTO(e))
             .collect(Collectors.toList());
     }
 
@@ -43,14 +43,14 @@ public class CoagriService {
 
         Coagri coagri = coagriRepo.findByEmail(email);
 
-        return converteParaCoagriDTO(coagri);
+        return new CoagriDTO(coagri);
     }
 
     public CoagriDTO buscarPorId(Long id) {
 
         Coagri coagri = coagriRepo.findById(id).get();
        
-        return converteParaCoagriDTO(coagri);
+        return new CoagriDTO(coagri);
     }
 
     public String alterar(Long id, CoagriDTO coagriDTO){
@@ -72,19 +72,6 @@ public class CoagriService {
         coagriRepo.deleteById(id);
 
         return "Coagri excluído!";
-    }
-
-    private CoagriDTO converteParaCoagriDTO(Coagri coagri) {
-
-        CoagriDTO coagriDTO = new CoagriDTO();
-        
-        coagriDTO.setId(coagri.getId());
-        coagriDTO.setEmail(coagri.getEmail());
-        coagriDTO.setSenha(coagri.getSenha());
-        coagriDTO.setNome(coagri.getNome());
-        coagriDTO.setTipoCesta(coagri.getTipoCesta());
-
-        return coagriDTO;
     }
 
 }
