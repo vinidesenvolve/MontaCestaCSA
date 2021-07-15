@@ -26,7 +26,7 @@ public class Cesta {
     Long id;
 
     @Column(nullable = false)
-    int quantidadeItens;
+    int tipo;
 
     @Column(nullable = false)
     String data;
