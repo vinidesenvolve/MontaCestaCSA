@@ -22,17 +22,17 @@ public class Cesta {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    int tipo;
+    private int tipo;
 
     @Column(nullable = false)
-    String data;
+    private String data;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cesta_id")
-    Coagri coagri;
+    @JoinColumn(name = "coagri_id")
+    private Coagri coagri;
 
     @ManyToMany
     @JoinTable(
@@ -40,6 +40,6 @@ public class Cesta {
         joinColumns = @JoinColumn(name = "cesta_id"),
         inverseJoinColumns = @JoinColumn(name = "item_id")
     )
-    List<Item> itens;
+    private List<Item> itens;
     
 }

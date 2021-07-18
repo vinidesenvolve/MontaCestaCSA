@@ -11,9 +11,11 @@ import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -21,20 +23,20 @@ public class Item {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String nome;
 
     @Column(nullable = false)
-    String nome;
+    private String descricao;
 
     @Column(nullable = false)
-    String descricao;
+    private int quantidade;
 
     @Column(nullable = false)
-    int quantidade;
-
-    @Column(nullable = false)
-    String origem;
+    private String origem;
     
     @ManyToMany(mappedBy = "itens")
-    List<Cesta> cesta;    
+    private List<Cesta> cesta;    
 }
