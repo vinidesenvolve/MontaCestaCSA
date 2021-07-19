@@ -25,16 +25,13 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String nome;
 
-    @Column(nullable = false)
     private String descricao;
 
-    @Column(nullable = false)
     private int quantidade;
 
-    @Column(nullable = false)
     private String origem;
     
     @ManyToMany(mappedBy = "itens")
