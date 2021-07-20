@@ -1,5 +1,7 @@
 package br.com.csaatibaia.MontaCesta.DTO;
 
+import java.util.Optional;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -35,5 +37,8 @@ public class ItemDTO {
         this.descricao = item.getDescricao();
         this.quantidade =item.getQuantidade();
         this.origem = item.getOrigem();
+    }
+
+    public ItemDTO(Optional<Item> item) {
     }
 }

@@ -1,11 +1,12 @@
 package br.com.csaatibaia.MontaCesta.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -20,49 +21,77 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepo;
 
-    public String cadastrar(@Valid ItemDTO itemDTO){
+    public ResponseEntity<String> cadastrar(ItemDTO itemDTO){
 
-            if(itemRepo.existsItemByNome(itemDTO.getNome())){
-                return "Nome indisponível, item já cadastrado";
+        if(itemRepo.existsItemByNome(itemDTO.getNome())){
+            return new ResponseEntity<>(
+                "Nome indisponível, item já cadastrado.",
+                HttpStatus.CONFLICT);
+        }
+
+        Item item = new Item();
+
+        item.setNome(itemDTO.getNome());
+        item.setDescricao(itemDTO.getDescricao());
+        item.setQuantidade(itemDTO.getQuantidade());
+        item.setOrigem(itemDTO.getOrigem());
+
+        itemRepo.save(item);
+    
+        return new ResponseEntity<>("Item cadastrado!", HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<ItemDTO>> buscarTodos(){
+
+        try{
+            List<Item> itens = itemRepo.findAll();
+
+            if(itens.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            Item item = new Item();
+            List<ItemDTO> itensDTO = itens.stream()
+                .map(item -> new ItemDTO(item))
+                .collect(Collectors.toList());
 
-            item.setNome(itemDTO.getNome());
-            item.setDescricao(itemDTO.getDescricao());
-            item.setQuantidade(itemDTO.getQuantidade());
-            item.setOrigem(itemDTO.getOrigem());
-    
-            itemRepo.save(item);
-    
-            return "Item cadastrado!";
-        
-    }
+            return new ResponseEntity<>(itensDTO, HttpStatus.FOUND);
 
-    public List<ItemDTO> buscarTodos(){
-
-        return itemRepo
-            .findAll()
-            .stream()
-            .map(e -> new ItemDTO(e))
-            .collect(Collectors.toList());
+        }catch(Exception e){ 
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     } 
 
-    public ItemDTO buscarPorId(Long id){
+    public ResponseEntity<ItemDTO> buscarPorId(Long id){
 
-        Item item = itemRepo.findById(id).get();
-    
-        return new ItemDTO(item);
+        Optional<Item> item = itemRepo.findById(id);
+
+        if(!isIdValid(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+        ItemDTO itemDTO = new ItemDTO(item.get());
+
+        return new ResponseEntity<>(itemDTO, HttpStatus.FOUND);
     }
 
-    public ItemDTO buscarPorNome(String nome){
+    public ResponseEntity<ItemDTO> buscarPorNome(String nome){
 
-        Item item = itemRepo.findByNome(nome);
+        if(!itemRepo.existsItemByNome(nome)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+        ItemDTO itemDTO = new ItemDTO(itemRepo.findByNome(nome));
 
-        return new ItemDTO(item);
+        return new ResponseEntity<>(itemDTO, HttpStatus.FOUND);
     }
 
-    public String alterar(Long id, ItemDTO itemDTO){
+    public ResponseEntity<String> alterar(Long id, ItemDTO itemDTO){
+
+        if(!isIdValid(id)){
+            return new ResponseEntity<>(
+                "Item inexistente ou não encontrado, verifique se o id é válido.",
+                HttpStatus.NOT_FOUND);
+        }
 
         Item item = itemRepo.findById(id).get();
     
@@ -73,14 +102,34 @@ public class ItemService {
 
         itemRepo.save(item);
 
-        return "Item alterado!";
+        return new ResponseEntity<>("Item alterado!", HttpStatus.OK);
     }
 
-    public String excluir(Long id){
+    public ResponseEntity<String> excluir(Long id){
+
+        if(!isIdValid(id)){
+            return new ResponseEntity<>(
+                "Item inexistente ou não encontrado, verifique se o id é válido.",
+                HttpStatus.NOT_FOUND);
+        }
 
         itemRepo.deleteById(id);
 
-        return "Item excluído!";
+        return new ResponseEntity<>("Item excluído!", HttpStatus.OK);
     }
     
+    private Boolean isIdValid(Long id){
+
+        if(id <= 0){
+            return false;
+        }
+
+        Optional<Item> item = itemRepo.findById(id);
+    
+        if(item.isPresent()){
+            return true; 
+        }
+        
+        return false;
+    }
 }
