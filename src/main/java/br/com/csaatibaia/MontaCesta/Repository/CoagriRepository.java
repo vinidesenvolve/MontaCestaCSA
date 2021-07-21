@@ -8,5 +8,5 @@ public interface CoagriRepository extends JpaRepository<Coagri, Long>{
 
     Coagri findCoagriByEmail(String email);
     
-    Boolean existsCoagriEmail(String email);
+    boolean existsCoagriByEmail(String email);
 }

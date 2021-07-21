@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.csaatibaia.MontaCesta.DTO.CoagriDTO;
 import br.com.csaatibaia.MontaCesta.Service.CoagriService;
@@ -27,37 +26,35 @@ public class CoagriController {
     CoagriService coagriService;
 
     @PostMapping
-    public ResponseEntity<String> cadastrarCoagri (@Valid @RequestBody CoagriDTO coagriDTO){
-        
+    public ResponseEntity<String> cadastrarCoagri (@RequestBody @Valid CoagriDTO coagriDTO){
         return coagriService.cadastrar(coagriDTO);
     }
 
     @GetMapping
-    public @ResponseBody List<CoagriDTO> buscarCoagris(){
-        
+    public ResponseEntity<List<CoagriDTO>> buscarCoagris(){
         return coagriService.buscarTodos();
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody CoagriDTO buscarCoagriPorId(@PathVariable Long id){
-
+    public ResponseEntity<CoagriDTO> buscarCoagriPorId(@PathVariable Long id){
         return coagriService.buscarPorId(id);
     }
 
     @GetMapping("/email/{email}")
-    public @ResponseBody CoagriDTO buscarCoagriPorEmail(@PathVariable String email){
-
+    public ResponseEntity<CoagriDTO> buscarCoagriPorEmail(@PathVariable String email){
         return coagriService.buscarPorEmail(email);
     }
 
+    //Get por nome
+
     @PutMapping("/{id}")
-    public @ResponseBody String alterarCoagri(@PathVariable Long id, @RequestBody CoagriDTO coagriDTO){
+    public ResponseEntity<String> alterarCoagri(@PathVariable Long id, @Valid @RequestBody CoagriDTO coagriDTO){
             
         return coagriService.alterar(id, coagriDTO);
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody String excluirCoagri(@PathVariable Long id){
+    public ResponseEntity<String> excluirCoagri(@PathVariable Long id){
         
         return coagriService.excluir(id);
     }

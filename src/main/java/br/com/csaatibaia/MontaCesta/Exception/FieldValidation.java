@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 @ControllerAdvice
-public class ItemValidationD extends ResponseEntityExceptionHandler {
+public class FieldValidation extends ResponseEntityExceptionHandler {
     
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -25,8 +25,8 @@ public class ItemValidationD extends ResponseEntityExceptionHandler {
         ex.getBindingResult().getAllErrors().forEach((error) ->{
 			
 			String campo = ((FieldError) error).getField();
-			String menssagem = error.getDefaultMessage();
-			errors.put(campo, menssagem);
+			String mensagem = error.getDefaultMessage();
+			errors.put(campo, mensagem);
 		});
         
 		return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);

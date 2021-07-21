@@ -8,6 +8,6 @@ public interface ItemRepository extends JpaRepository<Item, Long>{
 
     Item findItemByNome(String nome);
 
-    boolean existsItemNome(String nome);
+    boolean existsItemByNome(String nome);
     
 }

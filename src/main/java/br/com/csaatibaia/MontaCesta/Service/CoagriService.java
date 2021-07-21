@@ -1,6 +1,7 @@
 package br.com.csaatibaia.MontaCesta.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class CoagriService {
     
     public ResponseEntity<String> cadastrar(CoagriDTO coagriDTO){
 
-        if(coagriRepo.existsCoagriEmail(coagriDTO.getEmail())){
+        if(coagriRepo.existsCoagriByEmail(coagriDTO.getEmail())){
             return new ResponseEntity<>("Email indisponível", HttpStatus.CONFLICT);
         }
 
@@ -36,29 +37,54 @@ public class CoagriService {
         return new ResponseEntity<>("Coagri cadastrado!", HttpStatus.CREATED);
     }
      
-    public List<CoagriDTO> buscarTodos(){
+    public ResponseEntity<List<CoagriDTO>> buscarTodos(){
 
-        return coagriRepo.findAll()
-            .stream()
-            .map(e -> new CoagriDTO(e))
+        List<Coagri> coagris = coagriRepo.findAll();
+
+        if(coagris.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        List<CoagriDTO> coagrisDTO = coagris.stream()
+            .map(coagri -> new CoagriDTO(coagri))
             .collect(Collectors.toList());
+
+        return new ResponseEntity<>(coagrisDTO, HttpStatus.FOUND);
     }
 
-    public CoagriDTO buscarPorEmail(String email){
+    public ResponseEntity<CoagriDTO> buscarPorId(Long id) {
+
+        if(!isIdValid(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Coagri coagri = coagriRepo.findById(id).get();
+
+        CoagriDTO coagriDTO = new CoagriDTO(coagri);
+       
+        return new ResponseEntity<>(coagriDTO, HttpStatus.FOUND);
+    }
+    
+    public ResponseEntity<CoagriDTO> buscarPorEmail(String email){
+
+        if(!coagriRepo.existsCoagriByEmail(email)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
         Coagri coagri = coagriRepo.findCoagriByEmail(email);
 
-        return new CoagriDTO(coagri);
+        CoagriDTO coagriDTO = new CoagriDTO(coagri);
+
+        return new ResponseEntity<>(coagriDTO, HttpStatus.FOUND);
     }
 
-    public CoagriDTO buscarPorId(Long id) {
+    public ResponseEntity<String> alterar(Long id, CoagriDTO coagriDTO){
 
-        Coagri coagri = coagriRepo.findById(id).get();
-       
-        return new CoagriDTO(coagri);
-    }
-
-    public String alterar(Long id, CoagriDTO coagriDTO){
+        if(!isIdValid(id)){
+            return new ResponseEntity<>(
+                "Coagri inexistente ou não encontrado, verifique se o id é válido.",
+                HttpStatus.NOT_FOUND);
+        }
 
         Coagri coagri = coagriRepo.findById(id).get();
 
@@ -69,14 +95,35 @@ public class CoagriService {
         
         coagriRepo.save(coagri);
 
-        return "Coagri alterado!";        
+        return new ResponseEntity<>("Coagri alterado!", HttpStatus.OK);        
     }
 
-    public String excluir(Long id) {
+    public ResponseEntity<String> excluir(Long id) {
+
+        if(!isIdValid(id)){
+            return new ResponseEntity<>(
+                "Coagri inexistente ou não encontrado, verifique se o id é válido.",
+                HttpStatus.NOT_FOUND);
+        }
 
         coagriRepo.deleteById(id);
 
-        return "Coagri excluído!";
+        return new ResponseEntity<>("Coagri excluído!", HttpStatus.OK);
+    }
+
+    private Boolean isIdValid(Long id){
+
+        if(id <= 0){
+            return false;
+        }
+
+        Optional<Coagri> coagri = coagriRepo.findById(id);
+    
+        if(coagri.isPresent()){
+            return true; 
+        }
+        
+        return false;
     }
 
 }
