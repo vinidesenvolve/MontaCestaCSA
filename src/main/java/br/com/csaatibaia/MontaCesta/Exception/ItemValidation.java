@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 @ControllerAdvice
-public class ItemValidation extends ResponseEntityExceptionHandler {
+public class ItemValidationD extends ResponseEntityExceptionHandler {
     
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

@@ -6,6 +6,7 @@ import br.com.csaatibaia.MontaCesta.Model.Coagri;
 
 public interface CoagriRepository extends JpaRepository<Coagri, Long>{
 
-    Coagri findByEmail(String email);
+    Coagri findCoagriByEmail(String email);
     
+    Boolean existsCoagriEmail(String email);
 }

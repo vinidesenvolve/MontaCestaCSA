@@ -23,9 +23,9 @@ public class ItemService {
 
     public ResponseEntity<String> cadastrar(ItemDTO itemDTO){
 
-        if(itemRepo.existsItemByNome(itemDTO.getNome())){
+        if(itemRepo.existsItemNome(itemDTO.getNome())){
             return new ResponseEntity<>(
-                "Nome indisponível, item já cadastrado.",
+                "Nome indisponível.",
                 HttpStatus.CONFLICT);
         }
 
@@ -43,22 +43,16 @@ public class ItemService {
 
     public ResponseEntity<List<ItemDTO>> buscarTodos(){
 
-        try{
-            List<Item> itens = itemRepo.findAll();
-
-            if(itens.isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            List<ItemDTO> itensDTO = itens.stream()
-                .map(item -> new ItemDTO(item))
-                .collect(Collectors.toList());
-
+        List<Item> itens = itemRepo.findAll();
+        
+        if(itens.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<ItemDTO> itensDTO = itens.stream()
+            .map(item -> new ItemDTO(item))
+            .collect(Collectors.toList());
             return new ResponseEntity<>(itensDTO, HttpStatus.FOUND);
 
-        }catch(Exception e){ 
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     } 
 
     public ResponseEntity<ItemDTO> buscarPorId(Long id){
@@ -76,11 +70,11 @@ public class ItemService {
 
     public ResponseEntity<ItemDTO> buscarPorNome(String nome){
 
-        if(!itemRepo.existsItemByNome(nome)){
+        if(!itemRepo.existsItemNome(nome)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        ItemDTO itemDTO = new ItemDTO(itemRepo.findByNome(nome));
+        ItemDTO itemDTO = new ItemDTO(itemRepo.findItemByNome(nome));
 
         return new ResponseEntity<>(itemDTO, HttpStatus.FOUND);
     }

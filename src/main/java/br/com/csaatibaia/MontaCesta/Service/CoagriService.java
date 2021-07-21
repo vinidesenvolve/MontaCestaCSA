@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ public class CoagriService {
     
     public ResponseEntity<String> cadastrar(CoagriDTO coagriDTO){
 
+        if(coagriRepo.existsCoagriEmail(coagriDTO.getEmail())){
+            return new ResponseEntity<>("Email indisponível", HttpStatus.CONFLICT);
+        }
+
         Coagri coagri = new Coagri();
 
         coagri.setEmail(coagriDTO.getEmail());
@@ -28,7 +33,7 @@ public class CoagriService {
 
         coagriRepo.save(coagri);
 
-        return ResponseEntity.ok("Coagri cadastrado!");
+        return new ResponseEntity<>("Coagri cadastrado!", HttpStatus.CREATED);
     }
      
     public List<CoagriDTO> buscarTodos(){
@@ -41,7 +46,7 @@ public class CoagriService {
 
     public CoagriDTO buscarPorEmail(String email){
 
-        Coagri coagri = coagriRepo.findByEmail(email);
+        Coagri coagri = coagriRepo.findCoagriByEmail(email);
 
         return new CoagriDTO(coagri);
     }

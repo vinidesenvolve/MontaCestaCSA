@@ -18,17 +18,17 @@ public class ItemDTO {
     
     private Long id;
 
-    @NotBlank(message = "Informe o nome do item")
+    @NotBlank(message = "Informe o nome do item.")
     private String nome;
 
-    @NotBlank(message = "Informe a descrição do item")
+    @NotBlank(message = "Informe a descrição do item.")
     private String descricao;
 
-    @NotNull(message = "Informe a quantidade do item")
-    @Positive(message = "Quantidade deve ser maior que zero")
+    @NotNull(message = "Informe a quantidade do item.")
+    @Positive(message = "Quantidade deve ser maior que zero.")
     private int quantidade;
     
-    @NotBlank(message = "Informe a origem do item")
+    @NotBlank(message = "Informe a origem do item.")
     private String origem;
 
     public ItemDTO(Item item) {
@@ -39,6 +39,5 @@ public class ItemDTO {
         this.origem = item.getOrigem();
     }
 
-    public ItemDTO(Optional<Item> item) {
-    }
+    public ItemDTO(Optional<Item> item) { }
 }
