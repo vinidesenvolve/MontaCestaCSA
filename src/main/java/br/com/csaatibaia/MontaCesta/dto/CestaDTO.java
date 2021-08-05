@@ -1,9 +1,12 @@
 package br.com.csaatibaia.MontaCesta.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import br.com.csaatibaia.MontaCesta.model.Cesta;
+import br.com.csaatibaia.MontaCesta.model.Item;
+import br.com.csaatibaia.MontaCesta.model.Usuario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,16 +17,20 @@ import lombok.Setter;
 public class CestaDTO {
     
     Long id;
-
+    
     @NotBlank
     String data;
 
-    @NotNull
-    int tipo;
+    @NotBlank
+    Usuario usuario;
+
+    @NotBlank
+    List<Item> itens;
 
     public CestaDTO(Cesta cesta) {
         this.id = cesta.getId();
         this.data = cesta.getData();
-        this.tipo = cesta.getTipo();
+        this.usuario = cesta.getUsuario();
+        this.itens = cesta.getItens();
     }
 }

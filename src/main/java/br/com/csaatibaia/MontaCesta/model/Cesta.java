@@ -2,7 +2,6 @@ package br.com.csaatibaia.MontaCesta.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,10 +23,6 @@ public class Cesta {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private int tipo;
-
-    @Column(nullable = false)
     private String data;
     
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,8 +33,7 @@ public class Cesta {
     @JoinTable(
         name = "cesta_item",
         joinColumns = @JoinColumn(name = "cesta_id"),
-        inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
+        inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> itens;
     
 }
