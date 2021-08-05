@@ -1,11 +1,11 @@
-package br.com.csaatibaia.MontaCesta.DTO;
+package br.com.csaatibaia.MontaCesta.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.csaatibaia.MontaCesta.Model.Coagri;
+import br.com.csaatibaia.MontaCesta.model.Coagri;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

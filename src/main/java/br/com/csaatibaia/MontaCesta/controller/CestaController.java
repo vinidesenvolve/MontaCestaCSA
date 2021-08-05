@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.Controller;
+package br.com.csaatibaia.MontaCesta.controller;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.csaatibaia.MontaCesta.DTO.CestaDTO;
-import br.com.csaatibaia.MontaCesta.Service.CestaService;
+import br.com.csaatibaia.MontaCesta.dto.CestaDTO;
+import br.com.csaatibaia.MontaCesta.service.CestaService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +28,8 @@ public class CestaController {
     CestaService cestaService;
     
     @PostMapping("/{id}")
-    public ResponseEntity<String> fazerCesta(
-        @Valid 
-        @RequestBody CestaDTO cestaDTO, 
-        @PathVariable Long id){
-
-        return cestaService.fazer(cestaDTO, id);
+    public ResponseEntity<String> fazerCesta(@Valid @PathVariable Long id, @RequestBody List<String> itensPedidos){
+        return cestaService.fazer(id, itensPedidos);
     }
 
     @GetMapping

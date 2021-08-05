@@ -1,6 +1,9 @@
-package br.com.csaatibaia.MontaCesta.DTO;
+package br.com.csaatibaia.MontaCesta.dto;
 
-import br.com.csaatibaia.MontaCesta.Model.Cesta;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import br.com.csaatibaia.MontaCesta.model.Cesta;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +15,10 @@ public class CestaDTO {
     
     Long id;
 
+    @NotBlank
     String data;
 
+    @NotNull
     int tipo;
 
     public CestaDTO(Cesta cesta) {

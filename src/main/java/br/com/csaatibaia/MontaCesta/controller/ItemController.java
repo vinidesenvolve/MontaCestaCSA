@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.Controller;
+package br.com.csaatibaia.MontaCesta.controller;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.csaatibaia.MontaCesta.DTO.ItemDTO;
-import br.com.csaatibaia.MontaCesta.Service.ItemService;
+import br.com.csaatibaia.MontaCesta.dto.ItemDTO;
+import br.com.csaatibaia.MontaCesta.service.ItemService;
 
 @RestController
 @RequestMapping(path="/item")

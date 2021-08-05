@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.Controller;
+package br.com.csaatibaia.MontaCesta.controller;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.csaatibaia.MontaCesta.DTO.CoagriDTO;
-import br.com.csaatibaia.MontaCesta.Service.CoagriService;
+import br.com.csaatibaia.MontaCesta.dto.CoagriDTO;
+import br.com.csaatibaia.MontaCesta.service.CoagriService;
 
 @Controller
 @RequestMapping(path="/coagri")

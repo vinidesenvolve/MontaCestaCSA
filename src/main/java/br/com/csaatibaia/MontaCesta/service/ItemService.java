@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.Service;
+package br.com.csaatibaia.MontaCesta.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.csaatibaia.MontaCesta.DTO.ItemDTO;
-import br.com.csaatibaia.MontaCesta.Model.Item;
-import br.com.csaatibaia.MontaCesta.Repository.ItemRepository;
+import br.com.csaatibaia.MontaCesta.dto.ItemDTO;
+import br.com.csaatibaia.MontaCesta.model.Item;
+import br.com.csaatibaia.MontaCesta.repository.ItemRepository;
 
 @Service
 @Validated

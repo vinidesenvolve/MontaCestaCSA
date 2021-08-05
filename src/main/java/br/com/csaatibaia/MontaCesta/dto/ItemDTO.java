@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.DTO;
+package br.com.csaatibaia.MontaCesta.dto;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import br.com.csaatibaia.MontaCesta.Model.Item;
+import br.com.csaatibaia.MontaCesta.model.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

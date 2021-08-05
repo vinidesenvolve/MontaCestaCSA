@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.Exception;
+package br.com.csaatibaia.MontaCesta.exception;
 
 import java.util.HashMap;
 import java.util.Map;

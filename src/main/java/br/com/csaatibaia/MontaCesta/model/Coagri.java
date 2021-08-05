@@ -1,4 +1,4 @@
-package br.com.csaatibaia.MontaCesta.Model;
+package br.com.csaatibaia.MontaCesta.model;
 
 import java.util.List;
 
