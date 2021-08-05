@@ -17,7 +17,7 @@ import br.com.csaatibaia.MontaCesta.model.Cesta;
 import br.com.csaatibaia.MontaCesta.model.Usuario;
 import br.com.csaatibaia.MontaCesta.model.Item;
 import br.com.csaatibaia.MontaCesta.repository.CestaRepository;
-import br.com.csaatibaia.MontaCesta.repository.CoagriRepository;
+import br.com.csaatibaia.MontaCesta.repository.UsuarioRepository;
 import br.com.csaatibaia.MontaCesta.repository.ItemRepository;
 
 @Service
@@ -27,7 +27,7 @@ public class CestaService {
     CestaRepository cestaRepo;
 
     @Autowired
-    CoagriRepository coagriRepo;
+    UsuarioRepository coagriRepo;
 
     @Autowired
     ItemRepository itemRepo;

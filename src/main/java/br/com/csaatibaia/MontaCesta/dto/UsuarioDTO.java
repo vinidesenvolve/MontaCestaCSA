@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CoagriDTO {
+public class UsuarioDTO {
     
     private Long id;
 
@@ -31,7 +31,7 @@ public class CoagriDTO {
     @NotNull(message = "Informe a quantidade de itens da cesta.")
     private Integer tipoCesta;
 
-    public CoagriDTO(Usuario coagri) {
+    public UsuarioDTO(Usuario coagri) {
         this.id = coagri.getId();
         this.email = coagri.getEmail();
         this.senha = coagri.getSenha();

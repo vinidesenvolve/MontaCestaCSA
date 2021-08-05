@@ -9,17 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.csaatibaia.MontaCesta.dto.CoagriDTO;
+import br.com.csaatibaia.MontaCesta.dto.UsuarioDTO;
 import br.com.csaatibaia.MontaCesta.model.Usuario;
-import br.com.csaatibaia.MontaCesta.repository.CoagriRepository;
+import br.com.csaatibaia.MontaCesta.repository.UsuarioRepository;
 
 @Service
-public class CoagriService {
+public class UsuarioService {
     
     @Autowired
-    CoagriRepository coagriRepo;
+    UsuarioRepository coagriRepo;
     
-    public ResponseEntity<String> cadastrar(CoagriDTO coagriDTO){
+    public ResponseEntity<String> cadastrar(UsuarioDTO coagriDTO){
 
         if(coagriRepo.existsCoagriByEmail(coagriDTO.getEmail())){
             return new ResponseEntity<>("Email indisponível", HttpStatus.CONFLICT);
@@ -37,7 +37,7 @@ public class CoagriService {
         return new ResponseEntity<>("Coagri cadastrado!", HttpStatus.CREATED);
     }
      
-    public ResponseEntity<List<CoagriDTO>> buscarTodos(){
+    public ResponseEntity<List<UsuarioDTO>> buscarTodos(){
 
         List<Usuario> coagris = coagriRepo.findAll();
 
@@ -45,14 +45,14 @@ public class CoagriService {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        List<CoagriDTO> coagrisDTO = coagris.stream()
-            .map(coagri -> new CoagriDTO(coagri))
+        List<UsuarioDTO> coagrisDTO = coagris.stream()
+            .map(coagri -> new UsuarioDTO(coagri))
             .collect(Collectors.toList());
 
         return new ResponseEntity<>(coagrisDTO, HttpStatus.FOUND);
     }
 
-    public ResponseEntity<CoagriDTO> buscarPorId(Long id) {
+    public ResponseEntity<UsuarioDTO> buscarPorId(Long id) {
 
         if(!isIdValid(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,12 +60,12 @@ public class CoagriService {
 
         Usuario coagri = coagriRepo.findById(id).get();
 
-        CoagriDTO coagriDTO = new CoagriDTO(coagri);
+        UsuarioDTO coagriDTO = new UsuarioDTO(coagri);
        
         return new ResponseEntity<>(coagriDTO, HttpStatus.FOUND);
     }
     
-    public ResponseEntity<CoagriDTO> buscarPorEmail(String email){
+    public ResponseEntity<UsuarioDTO> buscarPorEmail(String email){
 
         if(!coagriRepo.existsCoagriByEmail(email)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -73,12 +73,12 @@ public class CoagriService {
 
         Usuario coagri = coagriRepo.findCoagriByEmail(email);
 
-        CoagriDTO coagriDTO = new CoagriDTO(coagri);
+        UsuarioDTO coagriDTO = new UsuarioDTO(coagri);
 
         return new ResponseEntity<>(coagriDTO, HttpStatus.FOUND);
     }
 
-    public ResponseEntity<String> alterar(Long id, CoagriDTO coagriDTO){
+    public ResponseEntity<String> alterar(Long id, UsuarioDTO coagriDTO){
 
         if(!isIdValid(id)){
             return new ResponseEntity<>(

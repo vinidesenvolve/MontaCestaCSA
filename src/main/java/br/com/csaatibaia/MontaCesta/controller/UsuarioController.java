@@ -15,40 +15,40 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.csaatibaia.MontaCesta.dto.CoagriDTO;
-import br.com.csaatibaia.MontaCesta.service.CoagriService;
+import br.com.csaatibaia.MontaCesta.dto.UsuarioDTO;
+import br.com.csaatibaia.MontaCesta.service.UsuarioService;
 
 @Controller
 @RequestMapping(path="/coagri")
-public class CoagriController {
+public class UsuarioController {
 
     @Autowired
-    CoagriService coagriService;
+    UsuarioService coagriService;
 
     @PostMapping
-    public ResponseEntity<String> cadastrarCoagri (@RequestBody @Valid CoagriDTO coagriDTO){
+    public ResponseEntity<String> cadastrarCoagri (@RequestBody @Valid UsuarioDTO coagriDTO){
         return coagriService.cadastrar(coagriDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<CoagriDTO>> buscarCoagris(){
+    public ResponseEntity<List<UsuarioDTO>> buscarCoagris(){
         return coagriService.buscarTodos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CoagriDTO> buscarCoagriPorId(@PathVariable Long id){
+    public ResponseEntity<UsuarioDTO> buscarCoagriPorId(@PathVariable Long id){
         return coagriService.buscarPorId(id);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<CoagriDTO> buscarCoagriPorEmail(@PathVariable String email){
+    public ResponseEntity<UsuarioDTO> buscarCoagriPorEmail(@PathVariable String email){
         return coagriService.buscarPorEmail(email);
     }
 
     //Get por nome
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> alterarCoagri(@PathVariable Long id, @Valid @RequestBody CoagriDTO coagriDTO){
+    public ResponseEntity<String> alterarCoagri(@PathVariable Long id, @Valid @RequestBody UsuarioDTO coagriDTO){
             
         return coagriService.alterar(id, coagriDTO);
     }
