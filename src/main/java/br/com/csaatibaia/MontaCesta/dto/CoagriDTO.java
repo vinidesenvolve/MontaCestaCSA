@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.csaatibaia.MontaCesta.model.Coagri;
+import br.com.csaatibaia.MontaCesta.model.Usuario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +31,7 @@ public class CoagriDTO {
     @NotNull(message = "Informe a quantidade de itens da cesta.")
     private Integer tipoCesta;
 
-    public CoagriDTO(Coagri coagri) {
+    public CoagriDTO(Usuario coagri) {
         this.id = coagri.getId();
         this.email = coagri.getEmail();
         this.senha = coagri.getSenha();

@@ -2,11 +2,11 @@ package br.com.csaatibaia.MontaCesta.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.csaatibaia.MontaCesta.model.Coagri;
+import br.com.csaatibaia.MontaCesta.model.Usuario;
 
-public interface CoagriRepository extends JpaRepository<Coagri, Long>{
+public interface CoagriRepository extends JpaRepository<Usuario, Long>{
 
-    Coagri findCoagriByEmail(String email);
+    Usuario findCoagriByEmail(String email);
     
     boolean existsCoagriByEmail(String email);
 }

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Coagri {
+public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

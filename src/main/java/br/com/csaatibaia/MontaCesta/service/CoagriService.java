@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.csaatibaia.MontaCesta.dto.CoagriDTO;
-import br.com.csaatibaia.MontaCesta.model.Coagri;
+import br.com.csaatibaia.MontaCesta.model.Usuario;
 import br.com.csaatibaia.MontaCesta.repository.CoagriRepository;
 
 @Service
@@ -25,7 +25,7 @@ public class CoagriService {
             return new ResponseEntity<>("Email indisponível", HttpStatus.CONFLICT);
         }
 
-        Coagri coagri = new Coagri();
+        Usuario coagri = new Usuario();
 
         coagri.setEmail(coagriDTO.getEmail());
         coagri.setSenha(coagriDTO.getSenha());
@@ -39,7 +39,7 @@ public class CoagriService {
      
     public ResponseEntity<List<CoagriDTO>> buscarTodos(){
 
-        List<Coagri> coagris = coagriRepo.findAll();
+        List<Usuario> coagris = coagriRepo.findAll();
 
         if(coagris.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -58,7 +58,7 @@ public class CoagriService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Coagri coagri = coagriRepo.findById(id).get();
+        Usuario coagri = coagriRepo.findById(id).get();
 
         CoagriDTO coagriDTO = new CoagriDTO(coagri);
        
@@ -71,7 +71,7 @@ public class CoagriService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Coagri coagri = coagriRepo.findCoagriByEmail(email);
+        Usuario coagri = coagriRepo.findCoagriByEmail(email);
 
         CoagriDTO coagriDTO = new CoagriDTO(coagri);
 
@@ -86,7 +86,7 @@ public class CoagriService {
                 HttpStatus.NOT_FOUND);
         }
 
-        Coagri coagri = coagriRepo.findById(id).get();
+        Usuario coagri = coagriRepo.findById(id).get();
 
         coagri.setEmail(coagriDTO.getEmail());
         coagri.setSenha(coagriDTO.getSenha());
@@ -117,7 +117,7 @@ public class CoagriService {
             return false;
         }
 
-        Optional<Coagri> coagri = coagriRepo.findById(id);
+        Optional<Usuario> coagri = coagriRepo.findById(id);
     
         if(coagri.isPresent()){
             return true; 

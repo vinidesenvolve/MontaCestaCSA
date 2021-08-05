@@ -32,7 +32,7 @@ public class Cesta {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coagri_id")
-    private Coagri coagri;
+    private Usuario coagri;
 
     @ManyToMany
     @JoinTable(

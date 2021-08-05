@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.csaatibaia.MontaCesta.dto.CestaDTO;
 import br.com.csaatibaia.MontaCesta.model.Cesta;
-import br.com.csaatibaia.MontaCesta.model.Coagri;
+import br.com.csaatibaia.MontaCesta.model.Usuario;
 import br.com.csaatibaia.MontaCesta.model.Item;
 import br.com.csaatibaia.MontaCesta.repository.CestaRepository;
 import br.com.csaatibaia.MontaCesta.repository.CoagriRepository;
@@ -44,7 +44,7 @@ public class CestaService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        Coagri coagri = coagriRepo.findById(coagriId).get();
+        Usuario coagri = coagriRepo.findById(coagriId).get();
 
         List<Item> itens = new ArrayList<>();
 
@@ -122,7 +122,7 @@ public class CestaService {
             return false;
         }
 
-        Optional<Coagri> coagri = coagriRepo.findById(id);
+        Optional<Usuario> coagri = coagriRepo.findById(id);
     
         if(coagri.isPresent()){
             return true; 
