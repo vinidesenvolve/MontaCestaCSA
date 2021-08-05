@@ -21,7 +21,7 @@ public class UsuarioService {
     
     public ResponseEntity<String> cadastrar(UsuarioDTO usuarioDTO){
 
-        if(usuarioRepo.findUsuarioByEmail(usuarioDTO.getEmail()).isPresent()){
+        if(usuarioRepo.findByEmail(usuarioDTO.getEmail()).isPresent()){
             return new ResponseEntity<>("Email indisponível!", HttpStatus.CONFLICT);
         }
 
@@ -68,7 +68,7 @@ public class UsuarioService {
     
     public ResponseEntity<UsuarioDTO> buscarPorEmail(String email){
 
-        Optional<Usuario> usuario = usuarioRepo.findUsuarioByEmail(email);
+        Optional<Usuario> usuario = usuarioRepo.findByEmail(email);
 
         if(usuario.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

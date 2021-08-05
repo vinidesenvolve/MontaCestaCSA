@@ -8,6 +8,6 @@ import br.com.csaatibaia.MontaCesta.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-    Optional<Usuario> findUsuarioByEmail(String email);
+    Optional<Usuario> findByEmail(String email);
     
 }
