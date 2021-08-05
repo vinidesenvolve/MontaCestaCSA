@@ -17,113 +17,100 @@ import br.com.csaatibaia.MontaCesta.repository.UsuarioRepository;
 public class UsuarioService {
     
     @Autowired
-    UsuarioRepository coagriRepo;
+    UsuarioRepository usuarioRepo;
     
-    public ResponseEntity<String> cadastrar(UsuarioDTO coagriDTO){
+    public ResponseEntity<String> cadastrar(UsuarioDTO usuarioDTO){
 
-        if(coagriRepo.existsCoagriByEmail(coagriDTO.getEmail())){
-            return new ResponseEntity<>("Email indisponível", HttpStatus.CONFLICT);
+        if(usuarioRepo.findUsuarioByEmail(usuarioDTO.getEmail()).isPresent()){
+            return new ResponseEntity<>("Email indisponível!", HttpStatus.CONFLICT);
         }
 
-        Usuario coagri = new Usuario();
+        Usuario usuario = new Usuario();
 
-        coagri.setEmail(coagriDTO.getEmail());
-        coagri.setSenha(coagriDTO.getSenha());
-        coagri.setNome(coagriDTO.getNome());
-        coagri.setTipoCesta(coagriDTO.getTipoCesta());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setSenha(usuarioDTO.getSenha());
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setPerfil(usuarioDTO.getPerfil());
+        usuario.setTipoCesta(usuarioDTO.getTipoCesta());
 
-        coagriRepo.save(coagri);
+        usuarioRepo.save(usuario);
 
-        return new ResponseEntity<>("Coagri cadastrado!", HttpStatus.CREATED);
+        return new ResponseEntity<>("Usuário cadastrado!", HttpStatus.CREATED);
     }
      
     public ResponseEntity<List<UsuarioDTO>> buscarTodos(){
 
-        List<Usuario> coagris = coagriRepo.findAll();
+        List<Usuario> usuarios = usuarioRepo.findAll();
 
-        if(coagris.isEmpty()){
+        if(usuarios.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        List<UsuarioDTO> coagrisDTO = coagris.stream()
-            .map(coagri -> new UsuarioDTO(coagri))
+        List<UsuarioDTO> coagrisDTO = usuarios.stream()
+            .map(usuario -> new UsuarioDTO(usuario))
             .collect(Collectors.toList());
 
-        return new ResponseEntity<>(coagrisDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(coagrisDTO, HttpStatus.OK);
     }
 
     public ResponseEntity<UsuarioDTO> buscarPorId(Long id) {
 
-        if(!isIdValid(id)){
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+
+        if(usuario.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Usuario coagri = coagriRepo.findById(id).get();
-
-        UsuarioDTO coagriDTO = new UsuarioDTO(coagri);
+        UsuarioDTO usuarioDTO = new UsuarioDTO(usuario.get());
        
-        return new ResponseEntity<>(coagriDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(usuarioDTO, HttpStatus.FOUND);
     }
     
     public ResponseEntity<UsuarioDTO> buscarPorEmail(String email){
 
-        if(!coagriRepo.existsCoagriByEmail(email)){
+        Optional<Usuario> usuario = usuarioRepo.findUsuarioByEmail(email);
+
+        if(usuario.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Usuario coagri = coagriRepo.findCoagriByEmail(email);
+        UsuarioDTO usuarioDTO = new UsuarioDTO(usuario.get());
 
-        UsuarioDTO coagriDTO = new UsuarioDTO(coagri);
-
-        return new ResponseEntity<>(coagriDTO, HttpStatus.FOUND);
+        return new ResponseEntity<>(usuarioDTO, HttpStatus.FOUND);
     }
 
-    public ResponseEntity<String> alterar(Long id, UsuarioDTO coagriDTO){
+    public ResponseEntity<String> alterar(Long id, UsuarioDTO usuarioDTO){
 
-        if(!isIdValid(id)){
-            return new ResponseEntity<>(
-                "Coagri inexistente ou não encontrado, verifique se o id é válido.",
-                HttpStatus.NOT_FOUND);
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+
+        if(usuario.isEmpty()) {
+            return new ResponseEntity<>("Usuário não encontrado.", HttpStatus.NOT_FOUND);
         }
 
-        Usuario coagri = coagriRepo.findById(id).get();
+        Usuario usuarioAtualizado = usuario.get();
 
-        coagri.setEmail(coagriDTO.getEmail());
-        coagri.setSenha(coagriDTO.getSenha());
-        coagri.setNome(coagriDTO.getNome());
-        coagri.setTipoCesta(coagriDTO.getTipoCesta());
+        usuarioAtualizado.setEmail(usuarioDTO.getEmail());
+        usuarioAtualizado.setSenha(usuarioDTO.getSenha());
+        usuarioAtualizado.setNome(usuarioDTO.getNome());
+        usuarioAtualizado.setPerfil(usuarioDTO.getPerfil());
+        usuarioAtualizado.setTipoCesta(usuarioDTO.getTipoCesta());
         
-        coagriRepo.save(coagri);
+        usuarioRepo.save(usuarioAtualizado);
 
-        return new ResponseEntity<>("Coagri alterado!", HttpStatus.OK);        
+        return new ResponseEntity<>("Usuário alterado!", HttpStatus.OK);        
     }
 
     public ResponseEntity<String> excluir(Long id) {
 
-        if(!isIdValid(id)){
-            return new ResponseEntity<>(
-                "Coagri inexistente ou não encontrado, verifique se o id é válido.",
-                HttpStatus.NOT_FOUND);
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+
+        if(usuario.isEmpty()) {
+            return new ResponseEntity<>("Usuário não encontrado.", HttpStatus.NOT_FOUND);
         }
 
-        coagriRepo.deleteById(id);
+        usuarioRepo.deleteById(id);
 
-        return new ResponseEntity<>("Coagri excluído!", HttpStatus.OK);
-    }
-
-    private Boolean isIdValid(Long id){
-
-        if(id <= 0){
-            return false;
-        }
-
-        Optional<Usuario> coagri = coagriRepo.findById(id);
-    
-        if(coagri.isPresent()){
-            return true; 
-        }
-        
-        return false;
+        return new ResponseEntity<>("Usuário excluído!", HttpStatus.OK);
     }
 
 }

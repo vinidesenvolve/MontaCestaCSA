@@ -28,14 +28,18 @@ public class UsuarioDTO {
     @NotBlank(message = "Informe o nome.")
     private String nome;
 
+    @NotBlank(message = "Informe o perfil.")
+    private String perfil;
+
     @NotNull(message = "Informe a quantidade de itens da cesta.")
     private Integer tipoCesta;
 
-    public UsuarioDTO(Usuario coagri) {
-        this.id = coagri.getId();
-        this.email = coagri.getEmail();
-        this.senha = coagri.getSenha();
-        this.nome = coagri.getNome();
-        this.tipoCesta = coagri.getTipoCesta();
+    public UsuarioDTO(Usuario usuario) {
+        this.id = usuario.getId();
+        this.email = usuario.getEmail();
+        this.senha = usuario.getSenha();
+        this.nome = usuario.getNome();
+        this.perfil = usuario.getPerfil();
+        this.tipoCesta = usuario.getTipoCesta();
     }
 }

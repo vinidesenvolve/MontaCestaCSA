@@ -19,44 +19,44 @@ import br.com.csaatibaia.MontaCesta.dto.UsuarioDTO;
 import br.com.csaatibaia.MontaCesta.service.UsuarioService;
 
 @Controller
-@RequestMapping(path="/coagri")
+@RequestMapping(path="/usuario")
 public class UsuarioController {
 
     @Autowired
-    UsuarioService coagriService;
+    UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<String> cadastrarCoagri (@RequestBody @Valid UsuarioDTO coagriDTO){
-        return coagriService.cadastrar(coagriDTO);
+    public ResponseEntity<String> cadastrarUsuario (@RequestBody @Valid UsuarioDTO usuarioDTO){
+        return usuarioService.cadastrar(usuarioDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> buscarCoagris(){
-        return coagriService.buscarTodos();
+    public ResponseEntity<List<UsuarioDTO>> buscarUsuarios(){
+        return usuarioService.buscarTodos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> buscarCoagriPorId(@PathVariable Long id){
-        return coagriService.buscarPorId(id);
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@PathVariable Long id){
+        return usuarioService.buscarPorId(id);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<UsuarioDTO> buscarCoagriPorEmail(@PathVariable String email){
-        return coagriService.buscarPorEmail(email);
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@PathVariable String email){
+        return usuarioService.buscarPorEmail(email);
     }
 
     //Get por nome
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> alterarCoagri(@PathVariable Long id, @Valid @RequestBody UsuarioDTO coagriDTO){
+    public ResponseEntity<String> alterarUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO){
             
-        return coagriService.alterar(id, coagriDTO);
+        return usuarioService.alterar(id, usuarioDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> excluirCoagri(@PathVariable Long id){
+    public ResponseEntity<String> excluirUsuario(@PathVariable Long id){
         
-        return coagriService.excluir(id);
+        return usuarioService.excluir(id);
     }
     
 }

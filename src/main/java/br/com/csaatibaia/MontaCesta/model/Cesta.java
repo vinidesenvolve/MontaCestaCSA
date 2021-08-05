@@ -31,8 +31,8 @@ public class Cesta {
     private String data;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "coagri_id")
-    private Usuario coagri;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     @ManyToMany
     @JoinTable(

@@ -1,12 +1,13 @@
 package br.com.csaatibaia.MontaCesta.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.csaatibaia.MontaCesta.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
-    Usuario findCoagriByEmail(String email);
+    Optional<Usuario> findUsuarioByEmail(String email);
     
-    boolean existsCoagriByEmail(String email);
 }
