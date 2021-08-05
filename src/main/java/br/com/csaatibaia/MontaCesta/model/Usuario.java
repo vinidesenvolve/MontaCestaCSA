@@ -29,6 +29,8 @@ public class Usuario {
 
     private String nome;
 
+    private String perfil;
+    
     private Integer tipoCesta;
 
     @OneToMany(mappedBy = "coagri", cascade = CascadeType.ALL)
